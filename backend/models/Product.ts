@@ -15,11 +15,11 @@ const ProductSchema = new Schema({
         required: true,
         type: String
     },
-    store:{
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'Store'
-    },
+    // store:{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     required: true,
+    //     ref: 'Store'
+    // },
     category:{
         type: String,
         required: true

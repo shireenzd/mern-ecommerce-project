@@ -9,6 +9,7 @@ ProductsController.post('/create', async (req, res) => {
             name: req.body.name,
             description: req.body.description,
             price: req.body.price,
+            category: req.body.category
         })
 
         product.save()
@@ -61,7 +62,7 @@ ProductsController.put('/:_id', async (req, res) => {
         res.json(updatedProduct)
     } catch (error) {
         console.log(error)
-        res.status(400).json({ error: "Failed to get products!" })
+        res.status(400).json({ error: "Failed to update products!" })
     }
 })
 
@@ -75,7 +76,7 @@ ProductsController.delete('/delete/:_id', async (req, res) => {
         res.json(operation)
     } catch (error) {
         console.log(error)
-        res.status(400).json({ error: "Failed to get products!" })
+        res.status(400).json({ error: "Failed to delete products!" })
     }
 })
 
