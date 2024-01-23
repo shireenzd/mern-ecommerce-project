@@ -1,18 +1,49 @@
 
 import express from 'express'
 import User from '../models/User'
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken"
+
+import {auth} from '../middleware/auth'
+
+const saltRounds = 10;
 
 const UsersController = express.Router()
 
 UsersController.post('/create',async (req,res) => {
+
     try {
-        const user = new User({
-            name: req.body.name,
-            email: req.body.email,
-            password: req.body.password
+      const {email,password,name}= req.body
+      const user = await User.findOne({ 
+            email: email   
+    }).exec()
+
+    // if user exists, return error!
+    if (user) {
+        return res.status(400).json({ error: "User with email " + email + " already exists!" })
+    }
+
+    // at this point, we're sure that the user record does not exist yet
+    const hashedPass = bcrypt.hashSync(password, saltRounds);
+
+    console.log(hashedPass)
+        const newUser = new User({
+            name: name,
+            email: email,
+            password: hashedPass
         })
-        await user.save()
-        res.json(user)
+        await newUser.save()
+        newUser['password'] = ''
+
+    console.log(newUser)
+    // if not exists, create it
+    const token = jwt.sign({
+      exp: Math.floor(Date.now() / 1000) + (60 * 60),
+      data: JSON.stringify(user)
+  }, 'some-secret-no-one-knows-except-this-backend');
+
+  console.log(token)
+  res.json({ token: token , newUser})
         
     } catch (error) {
         console.log(error)
