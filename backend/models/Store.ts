@@ -11,11 +11,11 @@ const StoreSchema = new Schema({
         required: true,
         type: String
     },
-    // owner: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     required: true,
-    //     ref: 'User'
-    // },
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
+    },
     location:{
         type: String,
         required: false
