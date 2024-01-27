@@ -3,7 +3,7 @@ import { BsHeartFill } from 'react-icons/bs';
 
 function FavoritesFilter() {
   return (
-    <BsHeartFill className="BsHeart-main" />
+    <BsHeartFill className="BsHeart-main w-5 h-5" />
   )
 }
 
