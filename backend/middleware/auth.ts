@@ -1,22 +1,28 @@
+import express, { Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
-export const auth = (req: any, res: any, next: any) => {
+import dotenv from 'dotenv'
+dotenv.config()
 
-    // get Authorization header from request
-    const authHeader = req.get('Authorization')
+const TOKEN_SECRET = process.env.TOKEN_SECRET
 
-    // extract token from authHeader
-    const token = authHeader?.split(' ')[1]
-
-    if (!token) {
-        return res.status(400).json({ error: 'Missing token in auth header!' })
-    }
-
+export const auth = (req: Request, res: Response, next: any) => {
     try {
-        const decoded = jwt.verify(token, 'some-secret-no-one-knows-except-this-backend');
-        // pass the decoded object to the next handler
-        req.decoded = decoded
+        const token = req.get('Authorization')?.split(' ')[1]
+
+        if (!token) {
+            return res.status(403).send({ error: "Token missing!" })
+        }
+
+        const decoded = jwt.verify(token, TOKEN_SECRET)
+
+        if (decoded) {
+            // @ts-ignore
+            req.decoded = decoded
+            next()
+        }
     } catch (error) {
-        res.json({error: 'Failed to verify JWT!'})
+        console.log(error)
+        res.status(400).json({error: "Failed to verify JWT"})
     }
-    next();
+
 }

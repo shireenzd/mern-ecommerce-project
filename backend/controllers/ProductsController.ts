@@ -1,18 +1,41 @@
 import express from "express";
 import Product from '../models/Product'
+import { auth } from "../middleware/auth";
+import Store from "../models/Store";
 
 const ProductsController = express.Router()
 
-ProductsController.post('/create', async (req, res) => {
+ProductsController.post('/create', auth, async (req, res) => {
     try {
+
+        // @ts-ignore
+        const userId = req.decoded.user._id
+
+        const store = await Store.findOne({
+            owner: userId
+        })
+        
+        
+        if (!store || !store.approved) {
+            console.log(store)
+            return res.status(400).json({error: "Your store is not approved yet!"})
+        }
+
         const product = new Product({
             name: req.body.name,
             description: req.body.description,
             price: req.body.price,
-            category: req.body.category
+            category: req.body.category,
+            store: store._id
         })
 
-        product.save()
+        const error = product.validateSync();
+        if (error) {
+            console.log(error)
+            return res.status(400).json({ error: "Failed to validate product!" })
+        }
+
+        await product.save()
 
         res.json(product)
 
@@ -47,6 +70,7 @@ ProductsController.get('/:_id', async (req, res) => {
     }
 })
 
+// TODO authorize and only allow the seller to update the product
 ProductsController.put('/:_id', async (req, res) => {
     try {
         if (!req.params._id || !req.body.name) {
@@ -62,7 +86,7 @@ ProductsController.put('/:_id', async (req, res) => {
         res.json(updatedProduct)
     } catch (error) {
         console.log(error)
-        res.status(400).json({ error: "Failed to update products!" })
+        res.status(400).json({ error: "Failed to get products!" })
     }
 })
 
@@ -76,8 +100,11 @@ ProductsController.delete('/delete/:_id', async (req, res) => {
         res.json(operation)
     } catch (error) {
         console.log(error)
-        res.status(400).json({ error: "Failed to delete products!" })
+        res.status(400).json({ error: "Failed to get products!" })
     }
 })
+
+
+// TODO add endpoint for store_owner to list the products they are selling
 
 export default ProductsController;

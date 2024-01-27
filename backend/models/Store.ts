@@ -23,7 +23,15 @@ const StoreSchema = new Schema({
     approved: {
         type: Boolean,
         default: false
-    }
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
 });
 
 

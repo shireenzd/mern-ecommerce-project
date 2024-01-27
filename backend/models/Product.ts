@@ -15,15 +15,23 @@ const ProductSchema = new Schema({
         required: true,
         type: String
     },
-    store:{
+    store: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'Store'
     },
-    category:{
+    category: {
         type: String,
         required: true
-    }
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
 });
 
 

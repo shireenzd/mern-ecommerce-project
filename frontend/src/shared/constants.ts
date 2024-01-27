@@ -1,0 +1,1 @@
+export const homeURL = 'http://localhost:5000/api/v1'
