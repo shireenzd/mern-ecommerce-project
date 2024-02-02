@@ -3,7 +3,7 @@ import { useCommerceStore } from "../store"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import { homeURL } from "../shared/constants"
-import ProductCard from "../components/ProductCard"
+import ProductCard from "../components/Products/ProductCard"
 
 export default function MyOrders() {
 

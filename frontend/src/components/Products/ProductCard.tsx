@@ -1,6 +1,6 @@
 import React from 'react'
 import { BsHeartFill } from 'react-icons/bs';
-import { useCommerceStore } from '../store';
+import { useCommerceStore } from '../../store';
 
 function ProductCard({ product }: { product: any }) {
 
@@ -34,7 +34,7 @@ function ProductCard({ product }: { product: any }) {
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsam quia magnam eveniet, perferendis non vel rem ad numquam ut sunt. Mollitia quia numquam consequuntur labore unde qui facilis alias laudantium!
                 </p>
                 <span className="flex justify-end">
-                    <button type="button" className="text-xs font-bold px-2 py-1 bg-black rounded-md text-white" onClick={()=>{addOneToCart(product)}}>Add To Cart</button>
+                    <button type="button" className="text-xs font-bold px-2 py-1 bg-black rounded-md text-white" onClick={()=>{addOneToCart(product._id)}}>Add To Cart</button>
                 </span>
             </div>
         </div>

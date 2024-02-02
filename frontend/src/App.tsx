@@ -6,7 +6,7 @@ import { useCommerceStore } from "./store";
 import Review from "./components/Forms/Review";
 import AddProduct from "./components/Forms/AddProduct";
 import CreateStore from "./components/Forms/CreateStore";
-import ProductList from "./components/ProductList";
+import ProductList from "./components/Products/ProductList";
 import Header from "./components/Header";
 import FiltersBar from "./components/Filters/FiltersBar";
 import { Routes, Route, useLocation } from "react-router-dom";

@@ -6,7 +6,7 @@ interface CommerceStore {
     setToken: (token: string) => void
     cart: {},
     addOneToCart: (productId: string) => void,
-    removeOneFromCart: (productId: string) => void,
+    subtractOneFromCart: (productId: string) => void,
     favoritesToggled: Boolean,
     toggleFavoritesFilter: () => void,
     searchFilter: string,
@@ -40,7 +40,7 @@ export const useCommerceStore = create<CommerceStore>(
                     cart: { ...state.cart, [productId]: newCount }
                 }
             }),
-            removeOneFromCart: (productId) => set((state) => {
+            subtractOneFromCart: (productId) => set((state) => {
                 // @ts-ignore
                 let newCount = (state.cart[productId] || 0) - 1
                 // TODO prevent going negative
