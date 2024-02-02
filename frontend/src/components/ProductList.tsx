@@ -17,13 +17,15 @@ function ProductList() {
     }, [])
 
     return (
-        <>
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 justify-items-center">
             {
                 products.map((product:any) => (
+                    <>
                     <ProductCard key={product._id} product={product} />
+                    </>
                 ))
             }
-        </>
+        </div>
     )
 }
 

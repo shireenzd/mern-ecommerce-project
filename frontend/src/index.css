@@ -15,3 +15,34 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+:root {
+  --accent-color: rgb(255, 124, 124);
+}
+
+::-webkit-scrollbar-corner { background: rgba(0,0,0,0.5); }
+
+* {
+  scrollbar-width: none;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 0px;
+}
+
+.active-img {
+  filter: invert(48%) sepia(13%) saturate(3207%) hue-rotate(290deg) brightness(95%) contrast(80%);
+}
+
+.active {
+  color: var(--accent-color);
+}
+
+/* styles for dev */
+input, textarea {
+  border: 1px solid rgb(107 114 128);
+  padding: 4px 8px;
+  border-radius: 10px;
+  width:60%;
+}

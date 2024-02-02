@@ -1,37 +1,36 @@
 import React, { useState } from 'react'
 import axios from "axios"
 import { useCommerceStore } from "../../store"
-import { homeURL } from "../../shared/constants"
+import { blackButtonStyle, formInputRowStyle, homeURL } from "../../shared/constants"
+import { Link } from "react-router-dom"
 
 function Register() {
-    
-    const {setToken} = useCommerceStore()
 
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [confirmPass, setConfirmPass] = useState('')
+    const { setToken } = useCommerceStore()
 
-
-    // {
-    //     "name": "store_owner",
-    //     "email": "store_owner@test.com",
-    //     "password": "password"
-    // }
-    const formStyle = {
-        display: 'flex',
-        flexDirection: 'column' as 'column',
-        justifyContent: 'space-between'
-    }
+    const {
+        userName,
+        setUserName,
+        userEmail,
+        setUserEmail,
+        userPassword,
+        setUserPassword,
+        userConfirmPassword,
+        setUserConfirmPassword,
+    } = useCommerceStore()
 
     const handleSubmit = (e: any) => {
+        if(userPassword !== userConfirmPassword){
+            // TODO show errors under inputs
+            return alert('Non matching passwords')
+        }
         const userData = {
-            name,
-            email,
-            password
+            name:userName,
+            email:userEmail,
+            password:userPassword
         }
         // localhost:5000/api/v1/users/register
-        axios.post(homeURL+'/users/register', userData)
+        axios.post(homeURL + '/users/register', userData)
             .then(function (response) {
                 console.log(response);
                 // const result = await response.json()
@@ -43,29 +42,42 @@ function Register() {
 
     }
     return (
-        <form style={formStyle}>
-            <span>
-                <label htmlFor="user-name">user-name</label>
-                <input type="text" name="user-name" id="user-name" value={name} onChange={(e) => { setName(e.target.value) }} />
-            </span>
+        <>
+            <form className="flex flex-col gap-4 px-6">
+                <h1 className="text-start text-xl">
+                    <b>
+                        Register
+                    </b>
+                </h1>
+                <span className={formInputRowStyle}>
+                    <label htmlFor="user-name">User Name</label>
+                    <input type="text" name="user-name" id="user-name" value={userName} onChange={(e) => { setUserName(e.target.value) }} />
+                </span>
 
-            <span>
-                <label htmlFor="register-user-email">register-user-email</label>
-                <input type="text" name="register-user-email" id="register-user-email" value={email} onChange={(e) => { setEmail(e.target.value) }} />
-            </span>
+                <span className={formInputRowStyle}>
+                    <label htmlFor="register-user-email">Email</label>
+                    <input type="text" name="register-user-email" id="register-user-email" value={userEmail} onChange={(e) => { setUserEmail(e.target.value) }} />
+                </span>
 
-            <span>
-                <label htmlFor="register-user-pass">register-user-pass</label>
-                <input type="password" name="register-user-pass" id="register-user-pass" value={password} onChange={(e) => { setPassword(e.target.value) }} />
-            </span>
+                <span className={formInputRowStyle}>
+                    <label htmlFor="register-user-pass">Password</label>
+                    <input type="password" name="register-user-pass" id="register-user-pass" value={userPassword} onChange={(e) => { setUserPassword(e.target.value) }} />
+                </span>
 
-            <span>
-                <label htmlFor="confirm-register-user-pass">confirm-register-user-pass</label>
-                <input type="password" name="confirm-register-user-pass" id="confirm-register-user-pass" value={confirmPass} onChange={(e) => { setConfirmPass(e.target.value) }} />
-            </span>
+                <span className={formInputRowStyle}>
+                    <label htmlFor="confirm-register-user-pass">Confirm Password</label>
+                    <input type="password" name="confirm-register-user-pass" id="confirm-register-user-pass" value={userConfirmPassword} onChange={(e) => { setUserConfirmPassword(e.target.value) }} />
+                </span>
 
-            <button onClick={handleSubmit} type="button">Register</button>
-        </form>
+                <div className="flex justify-end">
+                    <button className={blackButtonStyle} onClick={handleSubmit} type="button">Register</button>
+                </div>
+            </form>
+            <p>
+                If you already have an account,
+                <Link className="text-[var(--accent-color)]" to="/auth/login"> Click Here</Link>
+            </p>
+        </>
     )
 }
 

@@ -55,10 +55,9 @@ mongoose.connect(process.env.DATABASE_URL)
         })
     });
 
-    
-// async function start() {
-//     await mongoose.connect(process.env.DATABASE_URL);
-//     app.listen(PORT, () => {
-//         console.log(`Server started on port ${PORT}!`)
-//     })
-// }
+async function start() {
+    await mongoose.connect(process.env.DATABASE_URL);
+    app.listen(PORT, () => {
+        console.log(`Server started on port ${PORT}!`)
+    })
+}
