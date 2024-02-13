@@ -7,6 +7,10 @@ const StoreSchema = new Schema({
         required: true,
         type: String
     },
+    logo: {
+        required: true,
+        type: String
+    },
     description: {
         required: true,
         type: String
@@ -16,7 +20,7 @@ const StoreSchema = new Schema({
         required: true,
         ref: 'User'
     },
-    location:{
+    location: {
         type: String,
         required: false
     },

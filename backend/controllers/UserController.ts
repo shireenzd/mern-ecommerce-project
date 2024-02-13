@@ -26,6 +26,7 @@ UsersController.get('/list', async (req, res) => {
 UsersController.post('/register', async (req, res) => {
     try {
 
+        // TODO validate email regex
         const {
             name,
             email,

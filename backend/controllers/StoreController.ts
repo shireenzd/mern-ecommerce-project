@@ -2,8 +2,16 @@
 import express from 'express'
 import Store from "../models/Store"
 import User from "../models/User"
+import jwt from 'jsonwebtoken'
 import { auth } from "../middleware/auth"
 import { superAdmins } from "../shared/constants"
+import multer from 'multer'
+import { logoUploads } from "../middleware/multer"
+
+const upload = multer({ dest: './public/logos' })
+
+
+const TOKEN_SECRET = process.env.TOKEN_SECRET
 
 const StoreController = express.Router()
 
@@ -23,14 +31,16 @@ StoreController.get('/:_id', async (req, res) => {
     }
 })
 
-StoreController.post('/create', auth, async (req, res) => {
+StoreController.post('/create', auth, logoUploads.single('logo'), async (req, res) => {
     try {
         // @ts-ignore
+        const logoPath = '/logos/' + req.file.filename
+        // @ts-ignore
         const ownerId = req?.decoded.user._id
-        if(!ownerId){
-            res.status(400).json({error: "Token missing ownerId!"})
+        if (!ownerId) {
+            res.status(400).json({ error: "Token missing ownerId!" })
         }
-        
+
         const {
             name,
             description,
@@ -52,7 +62,8 @@ StoreController.post('/create', auth, async (req, res) => {
                 name,
                 description,
                 location,
-                owner: ownerId
+                owner: ownerId,
+                logo: logoPath
             }
         )
 
@@ -65,7 +76,8 @@ StoreController.post('/create', auth, async (req, res) => {
         await store.save()
         owner.store = store._id
         await owner.save()
-        res.json(store)
+        const token = jwt.sign({ user: { ...owner?.toJSON(), password: '' } }, TOKEN_SECRET)
+        res.json({ store, token })
     } catch (error) {
         console.log(error)
         res.status(400).json({ error: "Failed to create store!" })
@@ -78,16 +90,16 @@ StoreController.put('/approve/:_id', auth, async (req, res) => {
         if (!req.params._id) {
             return
         }
-        
+
         // @ts-ignore
         const userEmail = req.decoded.user.email
-        
+
         // authorize only admins
         // check by their email
-        if(!superAdmins.includes(userEmail)){
-            return res.status(400).json({error: "You don't have enough permissions!"})
+        if (!superAdmins.includes(userEmail)) {
+            return res.status(400).json({ error: "You don't have enough permissions!" })
         }
-        
+
         const updatedStore = await Store.findByIdAndUpdate(req.params._id, {
             approved: true
         }, { new: true })

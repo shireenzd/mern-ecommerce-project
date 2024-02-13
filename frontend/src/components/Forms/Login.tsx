@@ -1,29 +1,37 @@
 import axios from "axios"
 import React, { useState } from 'react'
 import { useCommerceStore } from "../../store"
-import { blackButtonStyle, formInputRowStyle, homeURL } from "../../shared/constants"
-import { Link } from "react-router-dom"
+import { blackButtonStyle, formInputRowStyle, homeAPI } from "../../shared/constants"
+import { Link, useNavigate } from "react-router-dom"
 
 function Login() {
+
+  const navigate = useNavigate()
   const {
     setToken,
     userEmail,
     setUserEmail,
     userPassword,
     setUserPassword,
-} = useCommerceStore()
+    setUserConfirmPassword
+  } = useCommerceStore()
 
   const handleSubmit = (e: any) => {
     const userData = {
-      email:userEmail,
-      password:userPassword
+      email: userEmail,
+      password: userPassword
     }
     // localhost:5000/api/v1/users/register
-    axios.post(homeURL + '/users/login', userData)
+    axios.post(homeAPI + '/users/login', userData)
       .then(function (response) {
-        console.log(response);
-        // const result = await response.json()
-        setToken(response.data.token)
+        if (response.status === 200) {
+          setUserPassword('')
+          setUserConfirmPassword('')
+          setToken(response.data.token)
+          navigate(-1)
+        } else {
+          console.log(response)
+        }
       })
       .catch(function (error) {
         console.log(error);
@@ -34,11 +42,11 @@ function Login() {
     <>
 
       <form className="flex flex-col gap-4 px-6">
-      <h1 className="text-start text-xl">
-                    <b>
-                        Login
-                    </b>
-                </h1>
+        <h1 className="text-start text-xl">
+          <b>
+            Login
+          </b>
+        </h1>
         <span className={formInputRowStyle}>
           <label htmlFor="login-user-email">Email</label>
           <input type="text" name="login-user-email" id="login-user-email" value={userEmail} onChange={(e) => { setUserEmail(e.target.value) }} />

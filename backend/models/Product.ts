@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const ProductSchema = new Schema({
     name: {
         required: true,
+        index: true,
         type: String
     },
     price: {
@@ -24,6 +25,22 @@ const ProductSchema = new Schema({
         type: String,
         required: true
     },
+    pictures: {
+        type: [String],
+        required: true
+    },
+    likes:{
+        type:Number,
+        default: 0
+    },
+    sumOfRatings: {
+        type: Number,
+        default: 0
+    },
+    numberOfReviews: {
+        type: Number,
+        default: 0
+    },
     updatedAt: {
         type: Date,
         default: Date.now
@@ -33,6 +50,8 @@ const ProductSchema = new Schema({
         default: Date.now
     },
 });
+
+ProductSchema.index({ name: 'text' })
 
 
 const Product = mongoose.model("Product", ProductSchema);

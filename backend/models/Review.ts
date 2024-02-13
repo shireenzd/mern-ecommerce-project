@@ -21,7 +21,7 @@ const ReviewSchema = new Schema({
     },
     comment: {
         type: String,
-        minlength: 50,
+        minlength: 20,
         required: true
     },
     createdAt: {

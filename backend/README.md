@@ -1,0 +1,1 @@
+Check the available queries on Mongoose models here https://mongoosejs.com/docs/queries.html

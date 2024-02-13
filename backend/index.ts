@@ -16,8 +16,11 @@ dotenv.config()
 const PORT = process.env.PORT
 const app = express()
 
+
+app.use(express.static('public'))
 // needed to allow parsing the request body as JSON
 app.use(express.json())
+// app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
 // products
@@ -55,9 +58,9 @@ mongoose.connect(process.env.DATABASE_URL)
         })
     });
 
-async function start() {
-    await mongoose.connect(process.env.DATABASE_URL);
-    app.listen(PORT, () => {
-        console.log(`Server started on port ${PORT}!`)
-    })
-}
+// async function start() {
+//     await mongoose.connect(process.env.DATABASE_URL);
+//     app.listen(PORT, () => {
+//         console.log(`Server started on port ${PORT}!`)
+//     })
+// }

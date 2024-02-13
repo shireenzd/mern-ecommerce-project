@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import axios from "axios"
 import { useCommerceStore } from "../../store"
-import { blackButtonStyle, formInputRowStyle, homeURL } from "../../shared/constants"
-import { Link } from "react-router-dom"
+import { blackButtonStyle, formInputRowStyle, homeAPI } from "../../shared/constants"
+import { Link, useNavigate } from "react-router-dom"
 
 function Register() {
 
+    const navigate = useNavigate()
     const { setToken } = useCommerceStore()
 
     const {
@@ -20,21 +21,24 @@ function Register() {
     } = useCommerceStore()
 
     const handleSubmit = (e: any) => {
-        if(userPassword !== userConfirmPassword){
+        if (userPassword !== userConfirmPassword) {
             // TODO show errors under inputs
             return alert('Non matching passwords')
         }
         const userData = {
-            name:userName,
-            email:userEmail,
-            password:userPassword
+            name: userName,
+            email: userEmail,
+            password: userPassword
         }
         // localhost:5000/api/v1/users/register
-        axios.post(homeURL + '/users/register', userData)
+        axios.post(homeAPI + '/users/register', userData)
             .then(function (response) {
-                console.log(response);
-                // const result = await response.json()
-                setToken(response.data.token)
+                if (response.status === 200) {
+                    setUserPassword('')
+                    setUserConfirmPassword('')
+                    setToken(response.data.token)
+                    navigate(-1)
+                }
             })
             .catch(function (error) {
                 console.log(error);

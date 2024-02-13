@@ -21,6 +21,9 @@ const UserSchema = new Schema({
         ref: 'Store',
         required: false,
     },
+    favorites: {
+        type: [String],
+    },
     updatedAt: {
         type: Date,
         default: Date.now
