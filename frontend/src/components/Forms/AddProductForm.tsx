@@ -40,7 +40,6 @@ function AddProductForm({ product, setProduct }: { product: any, setProduct: Fun
     }
 
     // TODO add placeholders to all inputs
-    // TODO limit the category input to only what's available in the code 
     const inputRowStyle = "flex flex-col items-start"
     return (
         <form className="flex flex-col justify-center gap-2" style={formStyle}>
@@ -54,7 +53,14 @@ function AddProductForm({ product, setProduct }: { product: any, setProduct: Fun
             </span>
             <span className={inputRowStyle}>
                 <label htmlFor="product-category">product-category</label>
-                <input type="text" name="product-category" id="product-category" value={product.category} onChange={(e) => setProduct({ ...product, category: e.target.value })} />
+                {/* <input type="text" name="product-category" id="product-category" value='' onChange={(e) => setProduct({ ...product, category: e.target.value })} /> */}
+                <select id="Category" onChange={(e) => setProduct({ ...product, category: e.target.value })} className='border-2 border-black'>
+                    <option value='furniture'>furniture</option>
+                    <option value='arts'>arts</option>
+                    <option value='vases'>vases</option>
+                    <option value='clothes'>clothes</option>
+                    <option value='paintings'>paintings</option>
+                </select>
             </span>
             <span className={inputRowStyle}>
                 <label htmlFor="product-description">product-description</label>

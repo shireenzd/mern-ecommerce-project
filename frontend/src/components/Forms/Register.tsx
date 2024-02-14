@@ -45,6 +45,7 @@ function Register() {
             });
 
     }
+
     return (
         <>
             <form className="flex flex-col gap-4 px-6">
@@ -56,7 +57,7 @@ function Register() {
                 <span className={formInputRowStyle}>
                     <label htmlFor="user-name" className='w-52 text-start'>User Name</label>
                     <input type="text" name="user-name" id="user-name"
-                     value={userName} onChange={(e) => { setUserName(e.target.value) }} />
+                        value={userName} onChange={(e) => { setUserName(e.target.value) }} />
                 </span>
 
                 <span className={formInputRowStyle}>
@@ -79,7 +80,7 @@ function Register() {
                 </div>
             </form>
             <p>
-                Already have an account? 
+                Already have an account?
                 <Link className="text-[var(--accent-color)]" to="/auth/login"> Click Here</Link>
             </p>
         </>
