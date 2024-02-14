@@ -54,22 +54,23 @@ function Register() {
                     </b>
                 </h1>
                 <span className={formInputRowStyle}>
-                    <label htmlFor="user-name">User Name</label>
-                    <input type="text" name="user-name" id="user-name" value={userName} onChange={(e) => { setUserName(e.target.value) }} />
+                    <label htmlFor="user-name" className='w-52 text-start'>User Name</label>
+                    <input type="text" name="user-name" id="user-name"
+                     value={userName} onChange={(e) => { setUserName(e.target.value) }} />
                 </span>
 
                 <span className={formInputRowStyle}>
-                    <label htmlFor="register-user-email">Email</label>
+                    <label htmlFor="register-user-email" className='w-52 text-start'>Email</label>
                     <input type="text" name="register-user-email" id="register-user-email" value={userEmail} onChange={(e) => { setUserEmail(e.target.value) }} />
                 </span>
 
                 <span className={formInputRowStyle}>
-                    <label htmlFor="register-user-pass">Password</label>
+                    <label htmlFor="register-user-pass" className='w-52 text-start'>Password</label>
                     <input type="password" name="register-user-pass" id="register-user-pass" value={userPassword} onChange={(e) => { setUserPassword(e.target.value) }} />
                 </span>
 
                 <span className={formInputRowStyle}>
-                    <label htmlFor="confirm-register-user-pass">Confirm Password</label>
+                    <label htmlFor="confirm-register-user-pass" className='w-52 text-start'>Confirm Password</label>
                     <input type="password" name="confirm-register-user-pass" id="confirm-register-user-pass" value={userConfirmPassword} onChange={(e) => { setUserConfirmPassword(e.target.value) }} />
                 </span>
 
@@ -78,7 +79,7 @@ function Register() {
                 </div>
             </form>
             <p>
-                If you already have an account,
+                Already have an account? 
                 <Link className="text-[var(--accent-color)]" to="/auth/login"> Click Here</Link>
             </p>
         </>
