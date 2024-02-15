@@ -12,8 +12,8 @@ function Rating({ currentRating, setCurrentRating, numberOfReviews }: { currentR
         }
     }
     return (
-        <span className="flex items-center">
-            {ratings.map((rating) => <FaStar onClick={() => setCurrentRating(rating)} color={rating <= currentRating ? "orange" : "white"} key={rating} />)}
+        <span className="flex items-center ">
+            {ratings.map((rating) => <FaStar onClick={() => setCurrentRating(rating)} color={rating <= currentRating ? "orange" : "black"} key={rating} />)}
             {/* @ts-ignore */}
             {showNumberOfReviews(numberOfReviews) && <p>{numberOfReviews.toString()}</p>}
         </span>

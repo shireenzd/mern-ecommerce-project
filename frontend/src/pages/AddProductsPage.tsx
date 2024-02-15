@@ -25,7 +25,8 @@ function AddProductsPage() {
             <div className="">
                 <AddProductForm setProduct={setProduct} product={product} />
             </div>
-            <div className="flex justify-center items-center rounded-xl box">
+            <div className="flex justify-center items-center rounded-xl
+             box">
                 <ProductCard product={product} />
             </div>
         </div>

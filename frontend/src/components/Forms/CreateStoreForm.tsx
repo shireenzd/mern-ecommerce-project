@@ -13,7 +13,8 @@ function CreateStore({ inputs, setInputs }: {
 
     const {
         token,
-        setToken
+        setToken,
+        setStoreName
     } = useCommerceStore()
 
 
@@ -23,6 +24,8 @@ function CreateStore({ inputs, setInputs }: {
         formData.append('description', inputs.description)
         formData.append('location', inputs.location)
         formData.append('logo', inputs.logo)
+
+        setStoreName(inputs.name)
 
         // localhost:5000/api/v1/stores/create
         fetch(homeAPI + '/stores/create', {
