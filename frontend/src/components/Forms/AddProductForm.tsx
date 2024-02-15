@@ -58,8 +58,8 @@ function AddProductForm({ product, setProduct }: { product: any, setProduct: Fun
             </span>
             <span className={inputRowStyle}>
                 <label htmlFor="product-category">product-category</label>
-                {/* <input type="text" name="product-category" id="product-category" value='' onChange={(e) => setProduct({ ...product, category: e.target.value })} /> */}
-                <select id="Category" onChange={(e) => setProduct({ ...product, category: e.target.value })} className='border-2 border-black'>
+                <select id="Category" onChange={(e) => setProduct({ ...product, category: e.target.value })} className='border-[1px] border-gray-700 rounded-md w-full'>
+                    <option value=''>Category</option>
                     <option value='furniture'>furniture</option>
                     <option value='arts'>arts</option>
                     <option value='vases'>vases</option>

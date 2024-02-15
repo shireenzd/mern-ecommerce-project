@@ -23,7 +23,7 @@ function ProductCarousel({ pictures }: { pictures: any[] }) {
         <>
             {pictures[index] &&
                 <div className="h-full relative">
-                    <img className="object-cover h-full" src={typeof (pictures[index]) === 'string' ? homeURL + pictures[index] : URL.createObjectURL(pictures[index])} alt="" />
+                    <img className="object-cover h-full w-full" src={typeof (pictures[index]) === 'string' ? homeURL + pictures[index] : URL.createObjectURL(pictures[index])} alt="" />
                     {pictures.length > 1 && <>
                         <p onClick={moveLeft} className="absolute text-2xl cursor-pointer left-0 top-[50%]">{'<'}</p>
                         <p onClick={moveRight} className="absolute text-2xl cursor-pointer right-0 top-[50%]">{'>'}</p>
