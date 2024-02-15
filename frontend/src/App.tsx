@@ -60,7 +60,6 @@ function App() {
           <Route path="/*" element={<ProductList />} />
         </Routes>
       </div>
-
     </div>
   );
 }

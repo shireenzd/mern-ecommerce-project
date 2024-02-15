@@ -50,14 +50,14 @@ function Login() {
             Login
           </b>
         </h1>
-        <span className={formInputRowStyle}>
-          <label htmlFor="login-user-email" className='w-52 text-start' >Email</label>
+        <span className='input-box'>
           <input type="text" name="login-user-email" required id="login-user-email" value={userEmail} onChange={(e) => { setUserEmail(e.target.value) }} />
+          <label htmlFor="login-user-email" >Email</label>
         </span>
 
-        <span className={formInputRowStyle}>
-          <label htmlFor="login-user-pass" className='w-52 text-start'>Password</label>
+        <span className='input-box'>
           <input type="password" required name="login-user-pass" id="login-user-pass" value={userPassword} onChange={(e) => { setUserPassword(e.target.value) }} />
+          <label htmlFor="login-user-pass">Password</label>
         </span>
         <span>
           {error && <p style={{ color: 'red' }}>{error}</p>}

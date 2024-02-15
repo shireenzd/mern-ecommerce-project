@@ -21,12 +21,23 @@ function CreateStorePage() {
             return navigate('/auth/login')
         }
     }, [])
+
+    const createStore={
+        backgroundImage: 'url(/addProduct.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        width:'100%',
+        height:'90vh'
+    }
+ 
+
     return (
-        <div className="flex">
-            <div className="w-1/2">
+        <div className="flex justify-center my-4 items-center gap-6" style={createStore}>
+            <div className="">
                 <CreateStoreForm inputs={inputs} setInputs={setInputs} />
             </div>
-            <div className="w-1/2 flex justify-center items-center">
+            <div className=" flex justify-center items-center rounded-xl box">
                 <StoreCardPreview inputs={inputs}/>
             </div>
         </div>

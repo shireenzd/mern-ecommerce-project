@@ -40,3 +40,49 @@
 .box{
   box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.3);
 }
+
+
+
+
+.input-box{
+  position: relative;
+  width:250px;
+}
+
+.input-box input{
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: #1d2b3a;
+  border-radius: 5px;
+  outline: none;
+  color: #fff;
+  font-size: 1em;
+  transition: 0.5s;
+}
+
+.input-box label{
+  position: absolute;
+  left: 0;
+  padding: 10px;
+  pointer-events: none;
+  font-size: 1em;
+  color: rgba(255, 255, 255, 0.25);
+  text-transform: uppercase;
+}
+
+.input-box input:valid ~  label, .input-box input:focus ~ label{
+  color: #1d2b3a;
+  transform: translateX(10px) translateY(-7px);
+  font-size: 0.65em;
+  padding: 0 10px;
+  background: #00dfc4 ;
+  border-left: 1px solid #00dfc4;
+  border-right: 1px solid #00dfc4;
+  letter-spacing: 0.2em;
+  border-radius: 2px;
+}
+
+.input-box input:valid, .input-box input:focus{
+  border: 1px solid #00dfc4;
+}

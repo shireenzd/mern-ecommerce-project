@@ -6,10 +6,6 @@ import { defaultProduct } from "../shared/constants"
 function AddProductsPage() {
     const [product, setProduct] = useState(defaultProduct)
 
-    const shadowCard = {
-        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)',
-    }
-
     const addProduct={
         backgroundImage: 'url(/addProduct.jpg)',
         backgroundSize: 'cover',
@@ -22,11 +18,10 @@ function AddProductsPage() {
 
     return (
         <div className="flex relative justify-center mt-10 mb-4 items-center gap-12" style={addProduct}>
-            <div className="">
+            <div>
                 <AddProductForm setProduct={setProduct} product={product} />
             </div>
-            <div className="flex justify-center items-center rounded-xl
-             box">
+            <div className="flex justify-center items-center rounded-xl box">
                 <ProductCard product={product} />
             </div>
         </div>

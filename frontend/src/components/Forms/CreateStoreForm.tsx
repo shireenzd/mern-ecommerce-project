@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useCommerceStore } from "../../store"
-import { homeAPI } from "../../shared/constants"
+import { greenButtonStyle, homeAPI } from "../../shared/constants"
 
 function CreateStore({ inputs, setInputs }: {
     inputs: {
@@ -45,37 +45,44 @@ function CreateStore({ inputs, setInputs }: {
             })
     }
 
-
     const formStyle = {
         display: 'flex',
         flexDirection: 'column' as 'column',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        backgroundColor: '#e5e5e5',
+        opacity:'70%',
+        padding: '20px',
+        boxShadow: ' 4px 4px 4px 4px rgba(0, 0, 0, 0.3)',
+
     }
+    const inputRowStyle = "flex flex-col items-start"
+
+
     return (
-        <form className="flex flex-col" action="" style={formStyle}>
+        <form className="flex flex-col justify-center gap-2 rounded-xl "  style={formStyle}>
             <span>
-                <label htmlFor="store-name">Store Name</label>
+                <label htmlFor="store-name" className='flex justify-start'>Store Name</label>
                 <input type="text" name="store-name" id="store-name" value={inputs.name} onChange={(e) => { setInputs({ ...inputs, name: e.target.value }) }} />
             </span>
 
             <span>
-                <label htmlFor="store-description">Store Description</label>
-                <textarea name="store-description" id="store-description" cols={30} rows={10} value={inputs.description} onChange={(e) => { setInputs({ ...inputs, description: e.target.value }) }}></textarea>
+                <label htmlFor="store-description" className='flex justify-start'>Store Description</label>
+                <textarea name="store-description" id="store-description" cols={30} rows={3} value={inputs.description} onChange={(e) => { setInputs({ ...inputs, description: e.target.value }) }}></textarea>
             </span>
 
             <span>
-                <label htmlFor="store-location">Store Location</label>
+                <label htmlFor="store-location" className='flex justify-start'>Store Location</label>
                 <input type="text" name="store-location" id="store-location" value={inputs.location} onChange={(e) => { setInputs({ ...inputs, location: e.target.value }) }} />
             </span>
 
             <span>
-                <label htmlFor="store-logo">Store Logo</label>
+                <label htmlFor="store-logo" className='flex justify-start'>Store Logo</label>
                 {/* @ts-ignore */}
                 <input onChange={(e) => setInputs({ ...inputs, logo: e.target.files[0] })} type="file" name="store-logo" id="store-logo" />
             </span>
-
-            <button onClick={handleCreateStore} type="button">Create Store</button>
-
+            <span className={inputRowStyle}>
+            <button onClick={handleCreateStore} className={greenButtonStyle} type="button">Create Store</button>
+            </span>
         </form>
     )
 }
