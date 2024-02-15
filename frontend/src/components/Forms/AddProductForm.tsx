@@ -11,7 +11,12 @@ function AddProductForm({ product, setProduct }: { product: any, setProduct: Fun
     const formStyle = {
         display: 'flex',
         flexDirection: 'column' as 'column',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        backgroundColor: '#e5e5e5',
+        opacity:'70%',
+        padding: '20px',
+        boxShadow: ' 4px 4px 4px 4px rgba(0, 0, 0, 0.3)',
+
     }
 
     const handleSubmit = (e: any) => {
@@ -42,7 +47,7 @@ function AddProductForm({ product, setProduct }: { product: any, setProduct: Fun
     // TODO add placeholders to all inputs
     const inputRowStyle = "flex flex-col items-start"
     return (
-        <form className="flex flex-col justify-center gap-2" style={formStyle}>
+        <form className="flex flex-col justify-center gap-2 rounded-xl" style={formStyle}>
             <span className={inputRowStyle}>
                 <label htmlFor="product-name">product-name</label>
                 <input type="text" name="product-name" id="product-name" value={product.name} onChange={(e) => setProduct({ ...product, name: e.target.value })} />
