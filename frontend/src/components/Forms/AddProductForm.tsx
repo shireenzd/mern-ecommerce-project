@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useCommerceStore } from "../../store"
-import { defaultProduct, greenButtonStyle, homeAPI } from "../../shared/constants"
+import { defaultProduct, homeAPI } from "../../shared/constants"
 
 function AddProductForm({ product, setProduct }: { product: any, setProduct: Function }) {
 
@@ -13,7 +13,7 @@ function AddProductForm({ product, setProduct }: { product: any, setProduct: Fun
         flexDirection: 'column' as 'column',
         justifyContent: 'space-between',
         backgroundColor: '#e5e5e5',
-        opacity:'70%',
+        opacity: '70%',
         padding: '20px',
         boxShadow: ' 4px 4px 4px 4px rgba(0, 0, 0, 0.3)',
 
@@ -50,15 +50,15 @@ function AddProductForm({ product, setProduct }: { product: any, setProduct: Fun
         <form className="flex flex-col justify-center gap-2 rounded-xl" style={formStyle}>
             <span className={inputRowStyle}>
                 <label htmlFor="product-name">product-name</label>
-                <input type="text" name="product-name" id="product-name" value={product.name} onChange={(e) => setProduct({ ...product, name: e.target.value })} />
+                <input className='addProductinput' type="text" name="product-name" id="product-name" value={product.name} onChange={(e) => setProduct({ ...product, name: e.target.value })} />
             </span>
             <span className={inputRowStyle}>
                 <label htmlFor="product-price">product-price</label>
-                <input type="number" name="product-price" id="product-price" value={product.price} onChange={(e) => setProduct({ ...product, price: parseInt(e.target.value) })} />
+                <input className='addProductinput' type="number" name="product-price" id="product-price" value={product.price} onChange={(e) => setProduct({ ...product, price: parseInt(e.target.value) })} />
             </span>
             <span className={inputRowStyle}>
                 <label htmlFor="product-category">product-category</label>
-                <select id="Category" onChange={(e) => setProduct({ ...product, category: e.target.value })} className='border-[1px] border-gray-700 rounded-md w-full'>
+                <select id="Category" onChange={(e) => setProduct({ ...product, category: e.target.value })} className='addProductinput border-[1px] border-gray-700 rounded-md w-full font-medium'>
                     <option value=''>Category</option>
                     <option value='furniture'>furniture</option>
                     <option value='arts'>arts</option>
@@ -69,14 +69,15 @@ function AddProductForm({ product, setProduct }: { product: any, setProduct: Fun
             </span>
             <span className={inputRowStyle}>
                 <label htmlFor="product-description">product-description</label>
-                <input type="text" name="product-description" id="product-description" value={product.description} onChange={(e) => setProduct({ ...product, description: e.target.value })} />
+                <input type="text" className='addProductinput' name="product-description" id="product-description" value={product.description} onChange={(e) => setProduct({ ...product, description: e.target.value })} />
             </span>
             <span className={inputRowStyle}>
                 <label htmlFor="product-pictures">Pictures</label>
-                <input onChange={(e) => e.target.files && setProduct({ ...product, pictures: Array.from(e.target.files) })} type="file" name="product-pictures" id="product-pictures" multiple={true} />
+                <input className='addProductinput file:border-0 file:bg-transparent file:text-gray-600 file:text-sm file:font-medium flex h-10 w-full rounded-md border border-input bg-white text-sm text-gray-400'
+                    onChange={(e) => e.target.files && setProduct({ ...product, pictures: Array.from(e.target.files) })} type="file" name="product-pictures" id="product-pictures" multiple={true} />
             </span>
             <span className={inputRowStyle}>
-                <button className={greenButtonStyle} onClick={handleSubmit} type="button">Add Product</button>
+                <button className='classButton' onClick={handleSubmit} type="button">Add Product</button>
             </span>
         </form>
     )

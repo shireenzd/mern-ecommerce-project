@@ -44,7 +44,7 @@ function Login() {
   return (
     <>
 
-      <form className="flex flex-col gap-4 px-6">
+      <form className="flex flex-col gap-4 px-4">
         <h1 className="text-start text-xl">
           <b>
             Login
@@ -66,10 +66,8 @@ function Login() {
           <button className={blackButtonStyle} onClick={handleSubmit} type="button">Login</button>
         </div>
       </form>
-      <p>
-         New to ECOM ?
+      <p  className="text-center mt-6">Don't have an account?
         <Link className="text-[var(--accent-color)]" to="/auth/register"> Click Here</Link>
-        &nbsp; to Register.
       </p>
     </>
   )

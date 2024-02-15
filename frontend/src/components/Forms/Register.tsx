@@ -48,7 +48,7 @@ function Register() {
 
     return (
         <>
-            <form className="flex flex-col gap-4 px-6">
+            <form className="flex flex-col gap-4 px-4">
                 <h1 className="text-start text-xl">
                     <b>
                         Register

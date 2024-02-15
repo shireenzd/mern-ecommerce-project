@@ -32,7 +32,7 @@ function AuthPage() {
   
   return (
     <div style={backgroundStyle} className="h-screen flex items-center flex-wrap justify-start">
-      <div style={formStyles} className=" flex flex-col justify-center auth min-h-96 w-1/2 ml-20  ">
+      <div style={formStyles} className=" flex flex-col justify-center rounded-md auth h-3/5 w-1/4 ml-36  ">
         <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
