@@ -36,7 +36,7 @@ function ProductCard({ product }: { product: any }) {
         }
     }
     return (
-        <div className="flex flex-col w-44 h-[280px] overflow-clip my-2 rounded-xl shadow-md">
+        <div className="flex flex-col w-44 h-[280px] overflow-clip rounded-xl shadow-md">
             <div className="top h-[60%] relative">
                 <ProductCarousel pictures={product.pictures} />
                 <div className="absolute top-2 left-2 leading-none text-sm">Store name</div>

@@ -2,7 +2,7 @@ import React from 'react'
 
 function ProductsGrid({ children }: any) {
     return (
-        <div className="w-full grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 justify-items-center">
+        <div className="w-full grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 justify-items-center my-2">
             {children}
         </div>
     )
