@@ -71,7 +71,11 @@ ProductsController.get('/filter', async (req, res) => {
             }
         }
         // @ts-ignore
-        const products = await Product.find(filters).sort({ price: productSorting }).exec()
+        const products = await Product.find(filters)
+            .populate('store', 'name')
+            // @ts-ignore
+            .sort({ price: productSorting })
+            .exec()
 
         res.json(products)
     } catch (error) {

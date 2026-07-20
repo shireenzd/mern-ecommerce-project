@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import Register from "./components/Forms/Register";
-import Login from "./components/Forms/Login";
 import { useCommerceStore } from "./store";
 import ReviewModal from "./components/Modals/ReviewModal";
-import CreateStore from "./components/Forms/CreateStoreForm";
 import ProductList from "./components/Products/ProductList";
 import Header from "./components/Header";
 import FiltersBar from "./components/Filters/FiltersBar";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import AuthPage from "./pages/AuthPage";
-import CreateStorePage from "./pages/CreateStorePage";
 import MyOrders from "./pages/MyOrders";
 import CartModal from "./components/Cart/CartModal";
 import SellPage from "./pages/SellPage";
@@ -19,9 +15,7 @@ import ConfirmModal from "./components/Modals/ConfirmModal";
 
 function App() {
   const {
-    token,
     showCart,
-    setShowCart,
     showConfimModal,
     confirmModalMessage,
     onCancel,
@@ -32,14 +26,8 @@ function App() {
   const [showFilters, setShowFilters] = useState(false)
 
   useEffect(() => {
-    const pathsToShowFilters = [
-      '/home'
-    ]
-    if (pathsToShowFilters.includes(location.pathname)) {
-      setShowFilters(true)
-    } else {
-      setShowFilters(false)
-    }
+    const pathsToShowFilters = ['/home', '/']
+    setShowFilters(pathsToShowFilters.includes(location.pathname))
   }, [location])
 
   return (
@@ -49,18 +37,19 @@ function App() {
       {showConfimModal && <ConfirmModal message={confirmModalMessage} onCancel={onCancel} onConfirm={onConfirm} />}
 
       {showReviewModal && <ReviewModal />}
-      <div className="flex flex-col w-full bg-white">
+      <div className="flex flex-col w-full border-b border-gray-100 bg-white">
         <Header />
         {showFilters && <FiltersBar />}
       </div>
-      <div className="overflow-y-scroll w-full">
+      <div className="w-full flex-1 overflow-y-auto bg-gray-50">
         <Routes>
+          <Route path="/" element={<Navigate to="/home" replace />} />
           <Route path="/home" element={<ProductList />} />
           <Route path="/sell" element={<SellPage />} />
           <Route path="/my-products" element={<MyProducts />} />
           <Route path="/my-orders" element={<MyOrders />} />
           <Route path="/auth/*" element={<AuthPage />} />
-          <Route path="/*" element={<ProductList />} />
+          <Route path="/*" element={<Navigate to="/home" replace />} />
         </Routes>
       </div>
 

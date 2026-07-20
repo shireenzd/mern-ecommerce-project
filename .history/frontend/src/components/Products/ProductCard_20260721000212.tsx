@@ -55,7 +55,7 @@ function ProductCard({ product }: { product: any }) {
     }
 
     return (
-        <div className="flex w-44 flex-col overflow-hidden rounded-xl border border-gray-100 bg-white text-left shadow-sm transition hover:shadow-md">
+        <div className="flex w-full max-w-[11.5rem] flex-col overflow-hidden rounded-xl border border-gray-100 bg-white text-left shadow-sm transition hover:shadow-md">
             <div className="relative h-40 bg-gray-100">
                 <ProductCarousel pictures={product.pictures || []} />
                 <div className="absolute left-2 top-2 max-w-[70%] truncate rounded bg-white/90 px-2 py-0.5 text-[10px] font-medium text-gray-700">

@@ -5,9 +5,18 @@ function SearchFilter() {
   const {
     searchFilter,
     setSearchFilter
-  } =  useCommerceStore()
+  } = useCommerceStore()
+
   return (
-    <input className="w-full rounded-2xl px-4 border-[1px] border-gray-500" type="search" name="search" id="search" placeholder="Search" value={searchFilter} onChange={(e)=>{setSearchFilter(e.target.value)}} />
+    <input
+      className="min-w-0 flex-1 rounded-full border border-gray-300 px-4 py-2 text-sm outline-none focus:border-gray-500"
+      type="search"
+      name="search"
+      id="search"
+      placeholder="Search products"
+      value={searchFilter}
+      onChange={(e) => { setSearchFilter(e.target.value) }}
+    />
   )
 }
 

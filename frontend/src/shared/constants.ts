@@ -1,5 +1,5 @@
-export const homeAPI = 'http://localhost:5000/api/v1'
-export const homeURL = 'http://localhost:5000'
+export const homeAPI = 'http://localhost:5001/api/v1'
+export const homeURL = 'http://localhost:5001'
 
 export const blackButtonStyle = "bg-black text-white p-1 px-2 rounded-md"
 export const greenButtonStyle = "bg-green-300 text-black p-1 px-2 rounded-md"

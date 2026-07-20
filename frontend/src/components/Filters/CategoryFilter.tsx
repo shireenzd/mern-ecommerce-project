@@ -19,21 +19,37 @@ function CategoryFilter() {
   ]
 
   return (
-    <div className="categories flex gap-4 items-center">
-      {categories.length && categories.map((category) => {
+    <div className="categories flex flex-wrap items-center gap-3">
+      {categories.map((category) => {
         if (!category) {
-          return <p key={'category_' + category} onClick={() => { setCategoryFilter(category) }} className={`font-bold text-xl cursor-pointer ${categoryFilter === category && 'active'}`}>
-            All
-          </p>
+          return (
+            <button
+              type="button"
+              key="category_all"
+              onClick={() => { setCategoryFilter(category) }}
+              className={`cursor-pointer text-lg font-bold ${categoryFilter === category ? 'active' : 'text-gray-700'}`}
+            >
+              All
+            </button>
+          )
         }
         return (
-
-          <div key={'category_' + category} onClick={() => { setCategoryFilter(category) }} className="h-10">
-            <img className={`cursor-pointer h-full min-w-7 ${categoryFilter === category && 'active-img'}`} src={'/categories/' + category + '.png'} alt="" />
-          </div>
+          <button
+            type="button"
+            key={'category_' + category}
+            onClick={() => { setCategoryFilter(category) }}
+            className="h-10"
+            aria-label={category}
+            aria-pressed={categoryFilter === category}
+          >
+            <img
+              className={`h-full min-w-7 cursor-pointer ${categoryFilter === category ? 'active-img' : ''}`}
+              src={'/categories/' + category + '.png'}
+              alt={category}
+            />
+          </button>
         )
-      }
-      )}
+      })}
     </div>
   )
 }

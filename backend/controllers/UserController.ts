@@ -74,7 +74,7 @@ UsersController.post('/login', async (req, res) => {
         })
 
         if (!user) {
-            res.status(401).json({ error: "User not found! Please register" })
+            return res.status(401).json({ error: "User not found! Please register" })
         }
 
         // verify password
