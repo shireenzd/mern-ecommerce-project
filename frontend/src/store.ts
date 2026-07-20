@@ -20,8 +20,6 @@ interface CommerceStore {
     setUserName: (userName: string) => void,
     userEmail: string,
     setUserEmail: (userEmail: string) => void,
-    storeName: string,
-    setStoreName: (storeName: string)=> void,
     userPassword: string,
     setUserPassword: (userPassword: string) => void,
     userConfirmPassword: string,
@@ -111,10 +109,6 @@ export const useCommerceStore = create<CommerceStore>(
             }),
             userEmail: '',
             setUserEmail: (userEmail) => set((state) => ({ userEmail: userEmail })),
-            storeName: '',
-            setStoreName: (storeName)=>set((state)=>{
-                return {storeName:storeName}
-            }),
             userPassword: '',
             setUserPassword: (userPassword) => set((state) => ({ userPassword: userPassword })),
             userConfirmPassword: '',

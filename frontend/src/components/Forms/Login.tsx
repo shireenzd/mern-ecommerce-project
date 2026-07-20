@@ -16,8 +16,6 @@ function Login() {
     setUserConfirmPassword
   } = useCommerceStore()
 
-  const [error, setError] = useState('');
-
   const handleSubmit = (e: any) => {
     const userData = {
       email: userEmail,
@@ -40,33 +38,31 @@ function Login() {
       });
 
   }
-
   return (
     <>
 
-      <form className="flex flex-col gap-4 px-4">
+      <form className="flex flex-col gap-4 px-6">
         <h1 className="text-start text-xl">
           <b>
             Login
           </b>
         </h1>
-        <span className='input-box'>
-          <input type="text" name="login-user-email" required id="login-user-email" value={userEmail} onChange={(e) => { setUserEmail(e.target.value) }} />
-          <label htmlFor="login-user-email" >Email</label>
+        <span className={formInputRowStyle}>
+          <label htmlFor="login-user-email">Email</label>
+          <input type="text" name="login-user-email" id="login-user-email" value={userEmail} onChange={(e) => { setUserEmail(e.target.value) }} />
         </span>
 
-        <span className='input-box'>
-          <input type="password" required name="login-user-pass" id="login-user-pass" value={userPassword} onChange={(e) => { setUserPassword(e.target.value) }} />
+        <span className={formInputRowStyle}>
           <label htmlFor="login-user-pass">Password</label>
+          <input type="password" name="login-user-pass" id="login-user-pass" value={userPassword} onChange={(e) => { setUserPassword(e.target.value) }} />
         </span>
-        <span>
-          {error && <p style={{ color: 'red' }}>{error}</p>}
-        </span>
+
         <div className="flex justify-end">
           <button className={blackButtonStyle} onClick={handleSubmit} type="button">Login</button>
         </div>
       </form>
-      <p  className="text-center mt-6">Don't have an account?
+      <p>
+        If you don't have an account yet,
         <Link className="text-[var(--accent-color)]" to="/auth/register"> Click Here</Link>
       </p>
     </>

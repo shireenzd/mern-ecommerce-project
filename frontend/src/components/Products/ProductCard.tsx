@@ -11,8 +11,7 @@ function ProductCard({ product }: { product: any }) {
         token,
         favorites,
         addOneToCart,
-        setFavorites,
-        storeName
+        setFavorites
     } = useCommerceStore()
 
     const getRating = (product: any) => {
@@ -40,8 +39,8 @@ function ProductCard({ product }: { product: any }) {
         <div className="flex flex-col w-44 h-[280px] overflow-clip rounded-xl shadow-md">
             <div className="top h-[60%] relative">
                 <ProductCarousel pictures={product.pictures} />
-                <div className="absolute top-2 left-2 leading-none text-sm">{storeName}</div>
-                <span className="flex absolute bottom-[1px] justify-between w-full px-2 items-center bg-white opacity-30">
+                <div className="absolute top-2 left-2 leading-none text-sm">Store name</div>
+                <span className="flex absolute bottom-2 justify-between w-full px-2 items-center">
                     <Rating currentRating={getRating(product) || 0} setCurrentRating={() => { }} numberOfReviews={product.numberOfReviews} />
                     <BsHeartFill onClick={handleLikeButton} className={"BsHeart-main " + (favorites.includes(product._id) && 'active')} />
                 </span>
@@ -51,7 +50,7 @@ function ProductCard({ product }: { product: any }) {
                     <h3 title={product.name} className="text-start text-xs truncate">{product.name}</h3>
                     <h3 className="text-end text-xs">${product.price}</h3>
                 </span>
-                <p className="text-xs text-start mt-1 overflow-y-scroll">
+                <p className="text-xs mt-1 overflow-y-scroll">
                     {product.description}
                 </p>
                 <span className="flex justify-end">

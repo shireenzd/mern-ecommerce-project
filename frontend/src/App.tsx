@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import Register from "./components/Forms/Register";
+import Login from "./components/Forms/Login";
 import { useCommerceStore } from "./store";
 import ReviewModal from "./components/Modals/ReviewModal";
+import CreateStore from "./components/Forms/CreateStoreForm";
 import ProductList from "./components/Products/ProductList";
 import Header from "./components/Header";
 import FiltersBar from "./components/Filters/FiltersBar";
 import { Routes, Route, useLocation } from "react-router-dom";
 import AuthPage from "./pages/AuthPage";
+import CreateStorePage from "./pages/CreateStorePage";
 import MyOrders from "./pages/MyOrders";
 import CartModal from "./components/Cart/CartModal";
 import SellPage from "./pages/SellPage";
 import MyProducts from "./pages/MyProducts";
 import ConfirmModal from "./components/Modals/ConfirmModal";
-
 
 function App() {
   const {
@@ -60,6 +63,7 @@ function App() {
           <Route path="/*" element={<ProductList />} />
         </Routes>
       </div>
+
     </div>
   );
 }
