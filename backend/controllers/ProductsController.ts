@@ -65,9 +65,14 @@ ProductsController.get('/filter', async (req, res) => {
             }
         }
         if (searchFilter) {
+            const searchText = String(searchFilter).trim()
+            const escaped = searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
             filters = {
                 ...filters,
-                $text: { $search: searchFilter }
+                $or: [
+                    { name: { $regex: escaped, $options: 'i' } },
+                    { description: { $regex: escaped, $options: 'i' } },
+                ]
             }
         }
         // @ts-ignore
