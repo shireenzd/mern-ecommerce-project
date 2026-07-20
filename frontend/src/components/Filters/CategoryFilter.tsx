@@ -1,5 +1,6 @@
 import React from 'react'
 import { useCommerceStore } from "../../store"
+import { productCategories } from "../../shared/constants"
 
 function CategoryFilter() {
 
@@ -8,15 +9,7 @@ function CategoryFilter() {
     setCategoryFilter
   } = useCommerceStore()
 
-  const categories = [
-    // keep the empty string for matching all items
-    '',
-    'clothes',
-    'furniture',
-    'arts',
-    'vases',
-    'paintings',
-  ]
+  const categories = ['', ...productCategories]
 
   return (
     <div className="categories flex flex-wrap items-center gap-3">

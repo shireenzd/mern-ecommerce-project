@@ -2,6 +2,14 @@ export const superAdmins = [
     'admin@test.com'
 ]
 
+export const productCategories = [
+    'clothes',
+    'furniture',
+    'arts',
+    'vases',
+    'paintings',
+] as const
+
 
 export const hashFileName = (filename: string)=>{
     const randomPrefix = Math.floor(Math.random()*1000).toString();

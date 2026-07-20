@@ -4,6 +4,7 @@ import { auth } from "../middleware/auth";
 import Store from "../models/Store";
 import { productUploads } from "../middleware/multer";
 import User from "../models/User";
+import { productCategories } from "../shared/constants";
 
 const ProductsController = express.Router()
 
@@ -20,6 +21,10 @@ ProductsController.post('/create', auth, productUploads.array('pictures', 10), a
         if (!store || !store.approved) {
             console.log(store)
             return res.status(400).json({ error: "Your store is not approved yet!" })
+        }
+
+        if (!(productCategories as readonly string[]).includes(req.body.category)) {
+            return res.status(400).json({ error: "Invalid category. Choose one of the allowed categories." })
         }
 
         const product = new Product({

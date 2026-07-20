@@ -44,7 +44,7 @@ function StoreProduct({ product }: { product: any }) {
                 </p>
                 <span className="flex justify-end">
                     {/* will do nothing if _id is undefined */}
-                    <button onClick={() => { setOnConfirm(deleteProduct); setShowConfirmModal(true) }} type="button" className={redButtonStyle + " text-xs font-bold"}>Remove</button>
+                    <button onClick={() => { setOnConfirm(deleteProduct); setShowConfirmModal(true) }} type="button" className={redButtonStyle + " text-xs mx-1 font-bold"}>Remove</button>
                     <button onClick={() => { }} type="button" className={blackButtonStyle + " text-xs font-bold"}>Edit</button>
                 </span>
             </div>
