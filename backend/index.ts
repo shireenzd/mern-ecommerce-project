@@ -13,7 +13,7 @@ import ReviewsController from "./controllers/ReviewsController";
 import OrdersController from "./controllers/OrdersController";
 dotenv.config()
 
-const PORT = process.env.PORT
+const PORT = Number(process.env.PORT) || 5001;
 const app = express()
 
 
@@ -53,9 +53,9 @@ app.get('/ready', (req, res) => {
 mongoose.connect(process.env.DATABASE_URL)
     .then(() => {
         console.log('Connected to MongoDB Atlas!')
-        app.listen(PORT, () => {
-            console.log(`Server started on port ${PORT}!`)
-        })
+        app.listen(PORT, '0.0.0.0', () => {
+            console.log(`Server is running on port ${PORT}`);
+        });
     });
 
 // async function start() {

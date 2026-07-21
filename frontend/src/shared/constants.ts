@@ -1,7 +1,8 @@
 export const APP_NAME = 'The Online Store'
 
-export const homeAPI = 'http://localhost:5001/api/v1'
-export const homeURL = 'http://localhost:5001'
+export const homeURL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+
+export const homeAPI = `${homeURL}/api/v1`;
 
 export const productCategories = [
     'clothes',
