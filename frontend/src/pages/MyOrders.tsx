@@ -42,6 +42,10 @@ export default function MyOrders() {
         return sum + order.products.reduce((innerSum: number, product: any) => innerSum + (product.quantity || 0), 0)
     }, 0)
 
+    const handleArchived = (orderId: string) => {
+        setMyOrders((currentOrders) => currentOrders.filter((order) => order._id !== orderId))
+    }
+
     return (
         <div className="flex min-h-screen flex-col items-stretch gap-6 px-6 py-6 text-left">
             <div className="flex items-end justify-between gap-4">
@@ -77,7 +81,7 @@ export default function MyOrders() {
             )}
 
             {!loading && !error && myOrders.length > 0 && myOrders.map((order) => (
-                <Order key={order._id} order={order} />
+                <Order key={order._id} order={order} onArchived={handleArchived} />
             ))}
         </div>
     )

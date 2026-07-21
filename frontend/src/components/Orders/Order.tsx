@@ -1,12 +1,13 @@
 import React from 'react'
 import ProductCarousel from "../Products/ProductCarousel"
 import { getReadableDate } from "../../shared/utils"
-import { blackButtonStyle, grayButtonStyle, greenButtonStyle } from "../../shared/constants"
+import { blackButtonStyle, grayButtonStyle, greenButtonStyle, homeAPI } from "../../shared/constants"
 import { useCommerceStore } from "../../store"
 
-function Order({ order }: any) {
+function Order({ order, onArchived }: any) {
 
     const {
+        token,
         setProductBeingReviewed,
         setShowReviewModal
     } = useCommerceStore()
@@ -18,6 +19,26 @@ function Order({ order }: any) {
     const totalItems = order.products.reduce((sum: number, product: any) => {
         return sum + (product.quantity || 0)
     }, 0)
+
+    const archiveOrder = async () => {
+        try {
+            const response = await fetch(homeAPI + '/orders/archive/' + order._id, {
+                method: 'PUT',
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+
+            const data = await response.json()
+            if (!response.ok || data?.error) {
+                return
+            }
+
+            onArchived(order._id)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <div className="flex flex-col gap-4 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
@@ -85,7 +106,7 @@ function Order({ order }: any) {
             })}
             <span className="flex justify-between gap-3 border-t border-gray-100 pt-2 text-sm text-gray-500">
                 <p>Need to review something? Open a delivered item above.</p>
-                <button className={blackButtonStyle + " text-xs font-bold"} onClick={console.log} type="button">
+                <button className={blackButtonStyle + " text-xs font-bold"} onClick={archiveOrder} type="button">
                     Archive
                 </button>
             </span>

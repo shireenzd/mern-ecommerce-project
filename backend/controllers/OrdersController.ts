@@ -40,7 +40,8 @@ OrdersController.get('/my-orders', auth, async (req, res) => {
         // @ts-ignore
         const userId = req.decoded.user._id
         const orders = await Order.find({
-            user: userId
+            user: userId,
+            archived: { $ne: true }
         })
             .exec()
         // TODO this is not making use of MongoDB relations, instead it's doing the processing here in the JS thread, so it can be refactored later to use the model relations
@@ -61,6 +62,40 @@ OrdersController.get('/my-orders', auth, async (req, res) => {
     } catch (error) {
         console.log(error)
         res.status(400).json({ error: "Failed to get orders!" })
+    }
+})
+
+OrdersController.put('/archive/:orderId', auth, async (req, res) => {
+    try {
+        // @ts-ignore
+        const userId = req.decoded.user._id
+        const { orderId } = req.params
+
+        if (!orderId) {
+            return res.status(400).json({ error: "Order id is required" })
+        }
+
+        const order = await Order.findOneAndUpdate(
+            {
+                _id: orderId,
+                user: userId,
+            },
+            {
+                archived: true,
+            },
+            {
+                new: true
+            }
+        )
+
+        if (!order) {
+            return res.status(404).json({ error: "Order not found" })
+        }
+
+        res.json({ order })
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({ error: "Failed to archive order!" })
     }
 })
 

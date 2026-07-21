@@ -17,6 +17,10 @@ const OrderSchema = new Schema({
         enum: ['pending', 'processing', 'shipped', 'delivered'],
         default: 'pending'
     },
+    archived: {
+        type: Boolean,
+        default: false
+    },
 }, {
     timestamps: true
 })
