@@ -3,6 +3,7 @@ import { Route, Routes, useNavigate } from "react-router-dom"
 import Register from "../components/Forms/Register"
 import Login from "../components/Forms/Login"
 import { useCommerceStore } from "../store"
+import { APP_NAME } from "../shared/constants"
 
 function AuthPage() {
   const navigate = useNavigate()
@@ -18,13 +19,14 @@ function AuthPage() {
   return (
     <div className="flex items-center flex-wrap justify-center">
       <div className="auth w-1/2 min-w-[400px]">
+        <h1 className="mb-4 text-2xl font-semibold text-gray-900">{APP_NAME}</h1>
         <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
         </Routes>
       </div>
       <div className="graphic w-1/2 p-4 min-w-[400px]">
-        <img src="/landing.webp" alt="" />
+        <img src="/landing.webp" alt={`${APP_NAME} landing`} />
       </div>
     </div>
   )

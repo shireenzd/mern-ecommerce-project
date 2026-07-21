@@ -28,7 +28,7 @@ function Login() {
           setUserPassword('')
           setUserConfirmPassword('')
           setToken(response.data.token)
-          navigate(-1)
+          navigate('/home')
         } else {
           console.log(response)
         }

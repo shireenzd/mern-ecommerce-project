@@ -1,3 +1,5 @@
+export const APP_NAME = 'The Online Store'
+
 export const homeAPI = 'http://localhost:5001/api/v1'
 export const homeURL = 'http://localhost:5001'
 

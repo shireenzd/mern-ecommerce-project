@@ -48,7 +48,7 @@ ReviewsController.post('/create', auth, async (req, res) => {
         // @ts-ignore
         const userId = req?.decoded.user._id
         if (!userId) {
-            res.status(400).json({ error: "Token is missing the userId" })
+            return res.status(400).json({ error: "Token is missing the userId" })
         }
 
         const {
@@ -65,10 +65,21 @@ ReviewsController.post('/create', auth, async (req, res) => {
         })
 
         const product = await Product.findOne({ _id: productId })
+        if (!product) {
+            return res.status(404).json({ error: "Product not found" })
+        }
 
-        const newSumOfRatings = product?.sumOfRatings + rating
+        if (!comment || String(comment).trim().length < 20) {
+            return res.status(400).json({ error: "Review comment must be at least 20 characters long" })
+        }
 
-        const newNumberOfReviews = (product?.numberOfReviews || 0) + 1
+        if (!rating || rating < 1 || rating > 5) {
+            return res.status(400).json({ error: "Rating must be between 1 and 5" })
+        }
+
+        const newSumOfRatings = product.sumOfRatings + rating
+
+        const newNumberOfReviews = (product.numberOfReviews || 0) + 1
 
         const updatedProduct = await Product.findByIdAndUpdate({
             _id: productId
@@ -86,7 +97,7 @@ ReviewsController.post('/create', auth, async (req, res) => {
             return res.status(400).json({ error: "Failed to validate review!" })
         }
 
-        review.save()
+        await review.save()
         res.json(review)
     } catch (error) {
         console.log(error)

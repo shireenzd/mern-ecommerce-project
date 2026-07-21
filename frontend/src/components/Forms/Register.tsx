@@ -37,7 +37,7 @@ function Register() {
                     setUserPassword('')
                     setUserConfirmPassword('')
                     setToken(response.data.token)
-                    navigate(-1)
+                    navigate('/home')
                 }
             })
             .catch(function (error) {

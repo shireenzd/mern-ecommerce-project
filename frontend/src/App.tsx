@@ -9,6 +9,7 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import AuthPage from "./pages/AuthPage";
 import MyOrders from "./pages/MyOrders";
 import CartModal from "./components/Cart/CartModal";
+import CartToast from "./components/Cart/CartToast";
 import SellPage from "./pages/SellPage";
 import MyProducts from "./pages/MyProducts";
 import ConfirmModal from "./components/Modals/ConfirmModal";
@@ -33,6 +34,7 @@ function App() {
   return (
     <div className="App flex flex-col h-screen">
       {showCart && <CartModal />}
+      <CartToast />
       {/* @ts-ignore */}
       {showConfimModal && <ConfirmModal message={confirmModalMessage} onCancel={onCancel} onConfirm={onConfirm} />}
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useCommerceStore } from "../../store"
 import CartItem from "./CartItem"
 import { greenButtonStyle, homeAPI } from "../../shared/constants"
@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom"
 import DarkFullScreenWrapper from "../Shared/DarkFullScreenWrapper"
 
 function CartModal() {
-
   const navigate = useNavigate()
 
   const {
@@ -16,27 +15,41 @@ function CartModal() {
     setShowCart,
   } = useCommerceStore()
 
-  const [cartProducts, setCartProducts] = useState([])
-  useEffect(() => {
+  const [cartProducts, setCartProducts] = useState<any[]>([])
 
+  const cartProductIds = useMemo(() => {
+    return Object.keys(cart).filter((id) => cart[id] > 0)
+  }, [cart])
+
+  useEffect(() => {
     const fetchCartProducts = async () => {
+      if (!cartProductIds.length) {
+        setCartProducts([])
+        return
+      }
+
       const response = await fetch(homeAPI + '/products/cart', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          "Authorization": `Bearer ${token}`
+          Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({
-          cart: Object.keys(cart)
+          cart: cartProductIds
         })
       })
       const result = await response.json()
-      console.log(result)
-      setCartProducts(result)
+      if (Array.isArray(result)) {
+        setCartProducts(result)
+      } else {
+        setCartProducts([])
+      }
     }
 
-    fetchCartProducts();
-  }, [])
+    fetchCartProducts()
+  }, [cart, token])
+
+  const visibleProducts = cartProducts.filter((product) => cart[product._id] > 0)
 
   const handleConfirmOrder = async () => {
     const response = await fetch(homeAPI + '/orders/create', {
@@ -50,35 +63,20 @@ function CartModal() {
       })
     })
     if (200 === response.status) {
-      const result = await response.json()
-      // empty cart
       emptyCart()
-      // hide cart MOdal
       setShowCart(false)
-      // navigate to my orders page
       navigate('/my-orders')
     }
   }
 
   const getTotal = () => {
-    let total = 0;
-    if (!cartProducts.length) {
-      return '0'
-    }
-    cartProducts.forEach((product: any) => {
-      let price = product.price
-      // @ts-ignore
-      let quantity = cart[product._id]
-
-      if (!price || !quantity) {
-        // jump over this element
-        return;
+    let total = 0
+    visibleProducts.forEach((product: any) => {
+      const quantity = cart[product._id]
+      if (product.price && quantity) {
+        total += quantity * product.price
       }
-
-      total = total + (quantity * price)
-
     })
-    console.log(total)
     return total.toString()
   }
 
@@ -89,15 +87,23 @@ function CartModal() {
         <p className="cursor-pointer" onClick={() => setShowCart(false)}>X</p>
       </span>
       <div className="flex flex-col gap-4 mt-6">
-        {cartProducts.length && cartProducts.map((product) => {
-          // @ts-ignore
-          return <CartItem key={product._id} product={product} number={cart[product._id]} />
-        })}
+        {!visibleProducts.length && (
+          <p className="text-base font-normal text-gray-300">Your cart is empty.</p>
+        )}
+        {visibleProducts.map((product) => (
+          <CartItem
+            key={product._id}
+            product={product}
+            quantity={cart[product._id]}
+          />
+        ))}
       </div>
-      <div className="flex justify-between mt-6">
-        Total: ${getTotal()}
-        <button className={greenButtonStyle} onClick={handleConfirmOrder} type="button">Confirm Order</button>
-      </div>
+      {visibleProducts.length > 0 && (
+        <div className="flex justify-between mt-6">
+          <span>Total: ${getTotal()}</span>
+          <button className={greenButtonStyle} onClick={handleConfirmOrder} type="button">Confirm Order</button>
+        </div>
+      )}
     </DarkFullScreenWrapper>
   )
 }

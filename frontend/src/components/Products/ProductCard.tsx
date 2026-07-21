@@ -94,7 +94,7 @@ function ProductCard({ product }: { product: any }) {
                 </div>
                 <span className="flex justify-end">
                     <button
-                        onClick={() => addOneToCart(product._id)}
+                        onClick={() => addOneToCart(product._id, product.name)}
                         type="button"
                         className="rounded-md bg-black px-2.5 py-1.5 text-xs font-semibold text-white transition hover:bg-gray-800"
                     >

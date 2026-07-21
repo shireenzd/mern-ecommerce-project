@@ -22,7 +22,7 @@ function CreateStorePage() {
         }
     }, [])
     return (
-        <div className="flex">
+        <div className="flex p-8">
             <div className="w-1/2">
                 <CreateStoreForm inputs={inputs} setInputs={setInputs} />
             </div>

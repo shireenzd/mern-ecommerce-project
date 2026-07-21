@@ -1,1 +1,5 @@
-Check the available queries on Mongoose models here https://mongoosejs.com/docs/queries.html
+# The Online Store
+
+Backend API for The Online Store marketplace.
+
+Mongoose query reference: https://mongoosejs.com/docs/queries.html

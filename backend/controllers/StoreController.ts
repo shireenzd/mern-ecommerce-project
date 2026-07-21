@@ -38,7 +38,7 @@ StoreController.post('/create', auth, logoUploads.single('logo'), async (req, re
         // @ts-ignore
         const ownerId = req?.decoded.user._id
         if (!ownerId) {
-            res.status(400).json({ error: "Token missing ownerId!" })
+            return res.status(400).json({ error: "Token missing ownerId!" })
         }
 
         const {
