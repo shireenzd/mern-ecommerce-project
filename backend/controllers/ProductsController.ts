@@ -126,6 +126,30 @@ ProductsController.post('/cart', auth, async (req, res) => {
     }
 })
 
+ProductsController.get('/mine/all', auth, async (req, res) => {
+    try {
+        // @ts-ignore
+        const storeId = req.decoded.user.store
+        if (!storeId) {
+            return res.status(400).json({ error: "You don't have a store" })
+        }
+
+        const store = await Store.findById(storeId)
+        if (!store) {
+            return res.status(404).json({ error: "Store not found" })
+        }
+
+        const products = await Product.find({
+            store: store._id
+        }).populate('store', 'name logo description location')
+
+        res.json({ store: store.toJSON(), products })
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({ error: "Failed to get products!" })
+    }
+})
+
 ProductsController.get('/:_id', async (req, res) => {
     try {
         if (!req.params._id) {
@@ -191,23 +215,49 @@ ProductsController.post('/like/:_id', auth, async (req, res) => {
     }
 })
 
-// TODO authorize and only allow the seller to update the product
-ProductsController.put('/:_id', async (req, res) => {
+// authorize and only allow the seller to update the product
+ProductsController.put('/:_id', auth, async (req, res) => {
     try {
-        if (!req.params._id || !req.body.name) {
-            return
+        // @ts-ignore
+        const user = req.decoded.user
+        if (!user.store) {
+            return res.status(403).json({ error: "You are not authorized!" })
         }
 
-        const updatedProduct = await Product.findByIdAndUpdate(
-            req.params._id,
-            { name: req.body.name },
+        if (!req.params._id) {
+            return res.status(400).json({ error: "Product id is required" })
+        }
+
+        const { name, description, price, category } = req.body
+
+        if (category && !(productCategories as readonly string[]).includes(category)) {
+            return res.status(400).json({ error: "Invalid category. Choose one of the allowed categories." })
+        }
+
+        const updates: Record<string, unknown> = {}
+        if (name) updates.name = name
+        if (description) updates.description = description
+        if (price !== undefined) updates.price = price
+        if (category) updates.category = category
+
+        if (!Object.keys(updates).length) {
+            return res.status(400).json({ error: "No valid fields to update" })
+        }
+
+        const updatedProduct = await Product.findOneAndUpdate(
+            { _id: req.params._id, store: user.store },
+            updates,
             { new: true }
-        );
+        )
+
+        if (!updatedProduct) {
+            return res.status(404).json({ error: "Product not found" })
+        }
 
         res.json(updatedProduct)
     } catch (error) {
         console.log(error)
-        res.status(400).json({ error: "Failed to get products!" })
+        res.status(400).json({ error: "Failed to update product!" })
     }
 })
 
@@ -227,29 +277,11 @@ ProductsController.delete('/delete/:_id', auth, async (req, res) => {
             store: user.store
         });
 
-        res.json(operation)
-    } catch (error) {
-        console.log(error)
-        res.status(400).json({ error: "Failed to get products!" })
-    }
-})
-
-
-// TODO add endpoint for store_owner to list the products they are selling
-ProductsController.get("/mine/all", auth, async (req, res) => {
-    try {
-        // @ts-ignore
-        const storeId = req.decoded.user.store
-        if (!storeId) {
-            return res.status(400).json({ error: "You don't have a store" })
+        if (!operation.deletedCount) {
+            return res.status(404).json({ error: "Product not found" })
         }
 
-        const products = await Product.find({
-            store: storeId
-        })
-
-        res.json(products)
-
+        res.json(operation)
     } catch (error) {
         console.log(error)
         res.status(400).json({ error: "Failed to get products!" })
